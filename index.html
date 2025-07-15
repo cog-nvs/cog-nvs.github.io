@@ -1,0 +1,493 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos">
+  <meta name="keywords" content="novel-view synthesis, 4D reconstruction, video diffusion, diffusion inpainting">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/cognvsicon.svg">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Reconstruct, Inpaint, Finetune:<br>Dynamic Novel-view Synthesis from Monocular Videos</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://www.linkedin.com/in/kaihuac/">Kaihua Chen</a><sup>*</sup>,&nbsp;</span>
+            <span class="author-block">
+              <a href="https://www.cs.cmu.edu/~tkhurana/">Tarasha Khurana</a><sup>*</sup>,&nbsp;</span>
+            <span class="author-block">
+              <a href="https://www.cs.cmu.edu/~deva/">Deva Ramanan</a>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">Carnegie Mellon University</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <span class="link-block">
+                <a
+                   class="external-link button is-normal is-rounded is-dark"
+                   disabled>
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a
+                   class="external-link button is-normal is-rounded is-dark"
+                   disabled>
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span>
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a
+                   class="external-link button is-normal is-rounded is-dark"
+                   disabled>
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>
+      <h2 class="subtitle">
+        We present CogNVS, a video diffusion model for novel-view synthesis of dynamic scenes. 
+        Given an in-the-wild monocular video capturing a dynamic scene, we first reconstruct the scene, render it from the target novel-view and inpaint any unobserved regions. 
+        Because CogNVS can be pre-trained via self-supervision, it can also be test-time-finetuned on a given target video, enabling it to zero-shot generalize to novel domains.
+        Here, we illustrate CogNVS’s “reconstruct, inpaint, finetune” pipeline on a sample video.
+      </h2>
+    </div>
+  </div>
+</section>
+
+<div class="columns is-centered has-text-centered">
+<h2 class="title is-3">In-the-wild Real-world Gallery</h2>
+</div>
+
+<section class="hero is-light is-small">
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
+      <div class="column">Input video</div>
+      <div class="column">Novel-view renders</div>
+      <div class="column">Novel-view by CogNVS</div>
+    </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-bear">
+          <video poster="" id="bear" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp01_davis_bear_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-hike">
+          <video poster="" id="hike" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp02_davis_hike_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-robot_manip">
+          <video poster="" id="robot_manip" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp03_robot_manip_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-robot_humanoid">
+          <video poster="" id="robot_humanoid" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp04_robot_humanoid_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+        <div class="item item-mv_superman">
+          <video poster="" id="mv_superman" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp05_mv_superman_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-mv_friends">
+          <video poster="" id="mv_friends" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp06_mv_friends_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-davis_blackswan">
+          <video poster="" id="davis_blackswan" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp07_davis_blackswan_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-static_outdoor">
+          <video poster="" id="static_outdoor" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp10_static_outdoor_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-static_room">
+          <video poster="" id="static_room" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp11_static_room_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-static_room">
+          <video poster="" id="static_room" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp12_sora_monster_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-static_room">
+          <video poster="" id="static_room" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp11_static_room_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+<section class="section"> 
+<div class="columns is-centered has-text-centered">
+<h2 class="title is-3">In-the-wild Synthetic Gallery</h2>
+</div>
+
+<section class="hero is-light is-small">
+
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
+      <div class="column">Input video</div>
+      <div class="column">Novel-view renders</div>
+      <div class="column">Novel-view by CogNVS</div>
+    </div>
+      <div id="results-carousel" class="carousel results-carousel">
+        <div class="item item-sora_monster">
+          <video poster="" id="sora_monster" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp12_sora_monster_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sora_balloon">
+          <video poster="" id="sora_balloon" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp13_sora_balloon_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sora_mammoth">
+          <video poster="" id="sora_mammoth" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp14_sora_mammoth_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-sora_corgi">
+          <video poster="" id="sora_corgi" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp15_sora_corgi_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        
+        <div class="item item-sora_kangroo">
+          <video poster="" id="sora_kangroo" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp16_sora_kangroo_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <div class="item item-sora_grandmom">
+          <video poster="" id="sora_grandmom" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/exp17_sora_grandmom_concat.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</section>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We explore novel-view synthesis for dynamic scenes from monocular videos. Prior approaches rely on costly test-time optimization of 4D representations or do not preserve scene geometry when trained in a feed-forward manner. 
+            Our approach is based on three key insights: (1) <em>covisible</em> pixels (that are visible in both the input and target views) can be rendered by first reconstructing the dynamic 3D scene and rendering the reconstruction from the novel-views and 
+            (2) <em>hidden</em> pixels in novel views can be "inpainted" with feed-forward 2D video diffusion models. Notably, our video inpainting diffusion model (CogNVS) can be self-supervised from 2D videos, allowing us to train it on a large corpus of in-the-wild videos. 
+            This in turn allows for (3) CogNVS to be applied zero-shot to novel test videos via <em>test-time finetuning</em>. 
+            We empirically verify that CogNVS outperforms almost all prior art for novel-view synthesis of dynamic scenes from monocular videos.
+          </p>
+          
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+
+  <div class="container is-max-desktop" style="margin-bottom: 30px;">
+
+    <div class="columns is-centered">
+
+      <!-- Comparison on Kubric-4D. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Comparison on Kubric-4D</h2>
+          <p>
+            We evaluate our CogNVS on Kubric-4D dataset. 
+          </p>
+
+          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+            <tr>
+                
+                <td width=200px>Input view</td>
+                <td width=200px>GT point cloud</td>
+                <td width=200px>GCD</td>
+                <td width=200px>TrajCrafter</td>
+                <td width=200px>CogNVS</td>
+                <td width=200px>GT novel view</td>
+            </tr>
+        </table>
+          <video id="kubric_comparison" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/kubric_comparison.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop"  style="margin-bottom: 30px;">
+
+    <div class="columns is-centered">
+
+      <!-- Comparison on Pardom-4D. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Comparison on ParallelDomain-4D</h2>
+          <p>
+            We evaluate our CogNVS on ParallelDomain-4D dataset. 
+          </p>
+
+          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+            <tr>
+                
+                <td width=200px>Input view</td>
+                <td width=200px>GT point cloud</td>
+                <td width=200px>GCD</td>
+                <td width=200px>TrajCrafter</td>
+                <td width=200px>CogNVS</td>
+                <td width=200px>GT novel view</td>
+            </tr>
+        </table>
+          <video id="pardom_comparison" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/pardom_comparison.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered">
+
+      <!-- Comparison on DyCheck. -->
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">Comparison on DyCheck</h2>
+          <p>
+            We evaluate our CogNVS on DyCheck dataset. 
+          </p>
+
+          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+            <tr>
+                
+                <td width=200px>Input view</td>
+                <td width=200px>MegaSAM</td>
+                <td width=200px>Shape-of-Motion</td>
+                <td width=200px>Mosca</td>
+                <td width=200px>CAT4D</td>
+                <td width=200px>TrajCrafter</td>
+                <td width=200px>CogNVS (MegaSAM)</td>
+                <td width=200px>CogNVS (Mosca)</td>
+            </tr>
+        </table>
+          <video id="dycheck_comparison" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/videos/dycheck_comparison.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+
+    <!--/ Pseudo-gt. -->
+
+
+    <!-- Concurrent Work. -->
+
+    <!-- <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Related Links</h2>
+
+        <div class="content has-text-justified">
+          Coming soon!
+        </div>
+      </div>
+    </div> -->
+
+    <!--/ Concurrent Work. -->
+
+
+<!-- 
+<section class="section">
+
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">How does it work?</h2>
+          <p>
+            The first stage of our pipeline generates amodal masks {A<sub>t</sub>} for an object, given its modal masks {M<sub>t</sub>} and pseudo-depth of the scene {D<sub>t</sub>} (which is obtained by running a monocular depth estimator on RGB video sequence {I<sub>t</sub>} ). The predicted amodal masks from the first stage are then sent as input to the second stage, along with the modal RGB content of the occluded object in consideration. The second stage then inpaints the occluded region and outputs the amodal RGB content {C<sub>t</sub>}
+           for the occluded object. Both stages employ a conditional latent diffusion framework with a 3D UNet backbone.
+          </p>
+          <img id="method" autoplay controls muted loop playsinline height="100%">
+            <source src="./static/images/method_figure.pdf"
+                    type="images/pdf">
+        </img>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+</section> -->
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{chen2024diffvas,
+      title={Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
+      author={Kaihua Chen and Tarasha Khurana and Deva Ramanan},
+      year={2025},
+      archivePrefix={arXiv},
+      eprint={...},
+      primaryClass={cs.CV},
+      url={...}
+    }</code></pre>
+  </div>
+</section>
+
+
+<footer class="footer">
+  <div class="container">
+    <!-- <div class="content has-text-centered">
+      <a class="icon-link"
+         href="./static/videos/nerfies_paper.pdf">
+        <i class="fas fa-file-pdf"></i>
+      </a>
+      <a class="icon-link" href="https://github.com/Kaihua-Chen" class="external-link" disabled>
+        <i class="fab fa-github"></i>
+      </a>
+    </div> -->
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content" style="text-align: center;">
+          <p>
+            This website is borrowed from <a
+              href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>. We sincerely thank them for this excellent open-source template!
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

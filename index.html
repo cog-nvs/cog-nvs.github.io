@@ -39,6 +39,23 @@
   <script src="./static/js/bulma-carousel.min.js"></script>
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+
+  <style>
+.card-img {
+    width: 120px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.card-img:hover {
+    transform: scale(1.05);
+}
+</style>
+
 </head>
 <body>
 
@@ -51,7 +68,7 @@
           <h1 class="title is-1 publication-title">Reconstruct, Inpaint, Finetune:<br>Dynamic Novel-view Synthesis from Monocular Videos</h1>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://www.linkedin.com/in/kaihuac/">Kaihua Chen</a><sup>*</sup>,&nbsp;</span>
+              <a href="https://github.com/Kaihua-Chen/">Kaihua Chen</a><sup>*</sup>,&nbsp;</span>
             <span class="author-block">
               <a href="https://www.cs.cmu.edu/~tkhurana/">Tarasha Khurana</a><sup>*</sup>,&nbsp;</span>
             <span class="author-block">
@@ -94,7 +111,7 @@
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Code (coming soon)</span>
                   </a>
               </span>
           </div>
@@ -128,12 +145,7 @@
 <section class="hero is-light is-small">
 
   <div class="hero-body">
-    <div class="container">
-      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
-      <div class="column">Input video</div>
-      <div class="column">Novel-view renders</div>
-      <div class="column">Novel-view by CogNVS</div>
-    </div>
+
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-bear">
           <video poster="" id="bear" autoplay controls muted loop playsinline height="100%">
@@ -194,22 +206,15 @@
                     type="video/mp4">
           </video>
         </div>
-
-        <div class="item item-static_room">
-          <video poster="" id="static_room" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/exp12_sora_monster_concat.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-
-        <div class="item item-static_room">
-          <video poster="" id="static_room" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/exp11_static_room_concat.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
       
       </div>
+
+      <div class="container">
+      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
+      <div class="column">(a) Input video</div>
+      <div class="column">(b) Novel-view renders</div>
+      <div class="column">(c) Novel-view by CogNVS</div>
+    </div>
     </div>
   </div>
 </section>
@@ -224,12 +229,6 @@
 <section class="hero is-light is-small">
 
   <div class="hero-body">
-    <div class="container">
-      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
-      <div class="column">Input video</div>
-      <div class="column">Novel-view renders</div>
-      <div class="column">Novel-view by CogNVS</div>
-    </div>
       <div id="results-carousel" class="carousel results-carousel">
         <div class="item item-sora_monster">
           <video poster="" id="sora_monster" autoplay controls muted loop playsinline height="100%">
@@ -271,6 +270,13 @@
         </div>
       
       </div>
+
+      <div class="container">
+      <div class="columns is-mobile has-text-centered mb-0 mt-0 is-size-5">
+      <div class="column">(a) Input video</div>
+      <div class="column">(b) Novel-view renders</div>
+      <div class="column">(c) Novel-view by CogNVS</div>
+    </div>
     </div>
   </div>
 </section>
@@ -303,21 +309,24 @@
 
 <section class="section">
 
-  <div class="container is-max-desktop" style="margin-bottom: 30px;">
+
+
+  <div class="container is-max-desktop"  style="margin-bottom: 30px;">
 
     <div class="columns is-centered">
 
-      <!-- Comparison on Kubric-4D. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Comparison on Kubric-4D</h2>
-          <p>
-            We evaluate our CogNVS on Kubric-4D dataset. 
+      <!-- Comparison on Kubric. -->
+      <div id="kubric-compare" class="row method-block" style="display: block;">
+        <h2 class="title is-3">Comparison on Kubric-4D</h2>
+
+         <p class="mb-4">
+            Comparison of dynamic novel view synthesis from monocular videos on the Kubric-4D dataset.
           </p>
 
-          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+        <div class="col-md-6 offset-md-2">
+
+          <table width=960px style="text-align: center; margin-bottom: -5px;">
             <tr>
-                
                 <td width=200px>Input view</td>
                 <td width=200px>GT point cloud</td>
                 <td width=200px>GCD</td>
@@ -325,15 +334,51 @@
                 <td width=200px>CogNVS</td>
                 <td width=200px>GT novel view</td>
             </tr>
-        </table>
-          <video id="kubric_comparison" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/kubric_comparison.mp4"
-                    type="video/mp4">
-          </video>
+            <tr>
+              <td colspan="6">
+                <video id="kubric-video" class="video" width="100%" loop playsinline autoplay muted controls>
+                  <source src="./static/videos/kubric/kubric2912.mp4" type="video/mp4">
+                </video>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </div>
+
+        <!-- thumbnails row -->
+        <div class="columns is-mobile is-justify-content-center" id="kubric-pills">
+          <div class="column is-narrow kubric-pill" data-value="kubric2910">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/kubric/kubric2910.png" alt="kubric2910">
+            </figure>
+          </div>
+          <div class="column is-narrow kubric-pill" data-value="kubric2915">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/kubric/kubric2915.png" alt="Spin">
+            </figure>
+          </div>
+          <div class="column is-narrow kubric-pill" data-value="kubric2912">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/kubric/kubric2912.png" alt="kubric">
+            </figure>
+          </div>
+          <div class="column is-narrow kubric-pill" data-value="kubric2917">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/kubric/kubric2917.png" alt="Teddy">
+            </figure>
+          </div>
+
+          <div class="column is-narrow kubric-pill" data-value="kubric2918">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/kubric/kubric2918.png" alt="Teddy">
+            </figure>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
+
 
   <div class="container is-max-desktop"  style="margin-bottom: 30px;">
 
@@ -372,32 +417,69 @@
     <div class="columns is-centered">
 
       <!-- Comparison on DyCheck. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Comparison on DyCheck</h2>
-          <p>
-            We evaluate our CogNVS on DyCheck dataset. 
+
+
+      <div id="dycheck-compare" class="row method-block" style="display: block;">
+        <h2 class="title is-3">Comparison on DyCheck</h2>
+
+         <p class="mb-4">
+            Comparison of dynamic scene reconstruction from monocular videos on the DyCheck dataset.
           </p>
 
-          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+        <div class="col-md-8 offset-md-2">
+
+          <table width=960px style="text-align: center; margin-bottom: -5px;">
             <tr>
-                
-                <td width=200px>Input view</td>
-                <td width=200px>MegaSAM</td>
-                <td width=200px>Shape-of-Motion</td>
-                <td width=200px>Mosca</td>
-                <td width=200px>CAT4D</td>
-                <td width=200px>TrajCrafter</td>
-                <td width=200px>CogNVS (MegaSAM)</td>
-                <td width=200px>CogNVS (Mosca)</td>
+              <td width="200px">Input view</td>
+              <td width="200px">MegaSAM</td>
+              <td width="200px">Shape‑of‑Motion</td>
+              <td width="200px">Mosca</td>
+              <td width="200px">CAT4D</td>
+              <td width="200px">TrajCrafter</td>
+              <td width="200px">CogNVS<sup>1</sup></td>
+              <td width="200px">CogNVS<sup>2</sup></td>
             </tr>
-        </table>
-          <video id="dycheck_comparison" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dycheck_comparison.mp4"
-                    type="video/mp4">
-          </video>
+            <tr>
+              <td colspan="8">
+                <video id="dycheck-video" class="video" width="100%" loop playsinline autoplay muted controls>
+                  <source src="./static/videos/dycheck/paper-windmill.mp4" type="video/mp4">
+                </video>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </div>
+
+        <!-- thumbnails row -->
+        <div class="columns is-mobile is-justify-content-center" id="dycheck-pills">
+          <div class="column is-narrow scene-pill" data-value="apple">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/dycheck/apple.png" alt="Apple">
+            </figure>
+          </div>
+          <div class="column is-narrow scene-pill" data-value="block">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/dycheck/block.png" alt="Block">
+            </figure>
+          </div>
+          <div class="column is-narrow scene-pill" data-value="paper-windmill">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/dycheck/paper-windmill.png" alt="Paper Windmill">
+            </figure>
+          </div>
+          <div class="column is-narrow scene-pill" data-value="spin">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/dycheck/spin.png" alt="Spin">
+            </figure>
+          </div>
+          <div class="column is-narrow scene-pill" data-value="teddy">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/dycheck/teddy.png" alt="Teddy">
+            </figure>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -452,7 +534,7 @@
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{chen2024diffvas,
+    <pre><code>@article{chen2025cognvs,
       title={Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
       author={Kaihua Chen and Tarasha Khurana and Deva Ramanan},
       year={2025},
@@ -488,6 +570,31 @@
     </div>
   </div>
 </footer>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('#dycheck-pills .scene-pill').forEach(pill => {
+      pill.addEventListener('click', () => {
+        const scene = pill.dataset.value;
+        const video = document.getElementById('dycheck-video');
+        const source = video.querySelector('source');
+        source.src = `./static/videos/dycheck/${scene}.mp4`;
+        video.load();
+      });
+    });
+
+    document.querySelectorAll('#kubric-pills .kubric-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const scene = pill.dataset.value;
+      const video = document.getElementById('kubric-video');
+      video.querySelector('source').src = `./static/videos/kubric/${scene}.mp4`;
+      video.load();
+    });
+  });
+  });
+  
+</script>
 
 </body>
 </html>

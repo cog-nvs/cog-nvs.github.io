@@ -155,3 +155,17 @@ body {
 #interpolation-image-wrapper img {
   border-radius: 5px;
 }
+
+#dycheck-video {
+  width: 960px;         /* or whatever fixed width you prefer */
+  height: 160px;        /* lock the height too */
+  object-fit: contain;  /* preserves aspect ratio */
+  background: black;    /* avoids a white flash when loading */
+}
+
+#kubric-video {
+  width: 960px;         /* or whatever fixed width you prefer */
+  height: 160px;        /* lock the height too */
+  object-fit: contain;  /* preserves aspect ratio */
+  background: black;    /* avoids a white flash when loading */
+}

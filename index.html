@@ -40,6 +40,11 @@
   <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
 
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+</script>
+
 
   <style>
 .card-img {
@@ -105,9 +110,9 @@
               </span>
               <!-- Code Link. -->
               <span class="link-block">
-                <a
+                <a href="https://github.com/Kaihua-Chen/cog-nvs"
                    class="external-link button is-normal is-rounded is-dark"
-                   disabled>
+                   >
                   <span class="icon">
                       <i class="fab fa-github"></i>
                   </span>
@@ -119,7 +124,18 @@
       </div>
     </div>
   </div>
+
 </section>
+
+
+<section class="section" style="margin-top: -5rem;">
+  <div class="container is-max-desktop has-text-centered">
+    <p class="is-size-5 has-text-weight-semibold">
+      TL;DR: CogNVS is a video diffusion model for dynamic novel-view synthesis that inpaints missing regions from renders of reconstructed 3D geometry, using self-supervised test-time finetuning.
+    </p>
+  </div>
+</section>
+
 
 <section class="hero teaser">
   <div class="container is-max-desktop">
@@ -128,12 +144,16 @@
         <source src="./static/videos/teaser.mp4"
                 type="video/mp4">
       </video>
-      <h2 class="subtitle">
+      <!-- <h2 class="subtitle">
         We present CogNVS, a video diffusion model for novel-view synthesis of dynamic scenes. 
         Given an in-the-wild monocular video capturing a dynamic scene, we first reconstruct the scene, render it from the target novel-view and inpaint any unobserved regions. 
         Because CogNVS can be pre-trained via self-supervision, it can also be test-time-finetuned on a given target video, enabling it to zero-shot generalize to novel domains.
         Here, we illustrate CogNVS’s “reconstruct, inpaint, finetune” pipeline on a sample video.
-      </h2>
+      </h2> -->
+
+      <p>Given an in-the-wild monocular video capturing a dynamic scene, we first reconstruct the scene, render it from the target novel-view and inpaint any unobserved regions. 
+        Because CogNVS can be pre-trained via self-supervision, it can also be test-time-finetuned on a given target video, enabling it to zero-shot generalize to novel domains.
+        Here, we illustrate CogNVS’s “reconstruct, inpaint, finetune” pipeline on a sample video.</p>
     </div>
   </div>
 </section>
@@ -311,7 +331,7 @@
 
 
 
-  <div class="container is-max-desktop"  style="margin-bottom: 30px;">
+  <div class="container is-max-desktop"  style="margin-bottom: 80px;">
 
     <div class="columns is-centered">
 
@@ -320,7 +340,9 @@
         <h2 class="title is-3">Comparison on Kubric-4D</h2>
 
          <p class="mb-4">
-            Comparison of dynamic novel view synthesis from monocular videos on the Kubric-4D dataset.
+            We evaluate CogNVS on the synthetic Kubric-4D dataset. Under extreme novel-view conditions, 
+            our method preserves sharp object boundaries and maintains 3D-consistent geometry of dynamic scenes, 
+            while successfully revealing occluded objects and background regions.
           </p>
 
         <div class="col-md-6 offset-md-2">
@@ -380,21 +402,23 @@
   </div>
 
 
-  <div class="container is-max-desktop"  style="margin-bottom: 30px;">
+  <div class="container is-max-desktop"  style="margin-bottom: 80px;">
 
     <div class="columns is-centered">
 
-      <!-- Comparison on Pardom-4D. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Comparison on ParallelDomain-4D</h2>
-          <p>
-            We evaluate our CogNVS on ParallelDomain-4D dataset. 
+      <!-- Comparison on Pardom. -->
+      <div id="pardom-compare" class="row method-block" style="display: block;">
+        <h2 class="title is-3">Comparison on ParallelDomain-4D</h2>
+
+         <p class="mb-4">
+            On the synthetic ParallelDomain-4D dataset featuring autonomous driving scenarios, 
+            CogNVS effectively hallucinates plausible road layouts and vehicle motions in novel views.
           </p>
 
-          <table width=1000px style="text-align: center; margin-bottom: -5px;">
+        <div class="col-md-6 offset-md-2">
+
+          <table width=960px style="text-align: center; margin-bottom: -5px;">
             <tr>
-                
                 <td width=200px>Input view</td>
                 <td width=200px>GT point cloud</td>
                 <td width=200px>GCD</td>
@@ -402,13 +426,48 @@
                 <td width=200px>CogNVS</td>
                 <td width=200px>GT novel view</td>
             </tr>
-        </table>
-          <video id="pardom_comparison" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/pardom_comparison.mp4"
-                    type="video/mp4">
-          </video>
+            <tr>
+              <td colspan="6">
+                <video id="pardom-video" class="video" width="100%" loop playsinline autoplay muted controls>
+                  <source src="./static/videos/pardom/pardom173.mp4" type="video/mp4">
+                </video>
+              </td>
+            </tr>
+          </table>
+          <br>
+        </div>
+
+        <!-- thumbnails row -->
+        <div class="columns is-mobile is-justify-content-center" id="pardom-pills">
+          <div class="column is-narrow pardom-pill" data-value="pardom48">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/pardom/pardom48.png" alt="pardom48">
+            </figure>
+          </div>
+          <div class="column is-narrow pardom-pill" data-value="pardom167">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/pardom/pardom167.png" alt="pardom167">
+            </figure>
+          </div>
+          <div class="column is-narrow pardom-pill" data-value="pardom173">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/pardom/pardom173.png" alt="pardom173">
+            </figure>
+          </div>
+          <div class="column is-narrow pardom-pill" data-value="pardom181">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/pardom/pardom181.png" alt="pardom181">
+            </figure>
+          </div>
+
+          <div class="column is-narrow pardom-pill" data-value="pardom294">
+            <figure class="image is-96x96">
+              <img class="card-img" src="./static/videos/pardom/pardom294.png" alt="pardom294">
+            </figure>
+          </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -423,7 +482,10 @@
         <h2 class="title is-3">Comparison on DyCheck</h2>
 
          <p class="mb-4">
-            Comparison of dynamic scene reconstruction from monocular videos on the DyCheck dataset.
+            We also benchmark CogNVS on the real-world DyCheck dataset. Here, 
+            CogNVS<sup>1</sup> leverages renders from MegaSAM, and CogNVS<sup>2</sup> from Mosca. 
+            Despite starting from noisy and incomplete point cloud renders (e.g., from MegaSAM),
+             our approach still generates photo-realistic and 3D-consistent novel views.
           </p>
 
         <div class="col-md-8 offset-md-2">
@@ -486,6 +548,41 @@
 </section>
 
 
+
+<section class="section">
+
+
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column">
+        <div class="content">
+          <h2 class="title is-3">How does it work?</h2>
+          <p>
+            <!-- <strong>CogNVS Overview.</strong> -->
+            During training (<strong>left</strong>), given a 2D source video (in <span style="color:blue;">blue</span>) of a dynamic scene, we first reconstruct the scene using off-the-shelf monocular reconstruction algorithms like MegaSAM to obtain the 3D scene geometry, 
+            \( \mathcal{G}_{\rm src} \), and camera odometry, \( \mathbf{c}_{\rm src} \). We then sample a set of arbitrary camera trajectories \( \{\mathbf{c}_1, \cdots, \mathbf{c}_N\} \) to simulate plausible occluded geometries, 
+            \( \{\mathcal{G}^{\rm cov}_{{\rm src},1}, \cdots, \mathcal{G}^{\rm cov}_{{\rm src},N}\} \), which when rendered from original camera trajectory \( \mathbf{c}_{\rm src} \) produces a mask of source pixels that are co-visible in the sampled trajectory (in <span style="color:orange;">orange</span>). 
+            The source video and its masked variant produce a self-supervised training pair for learning CogNVS, our video inpainting diffusion model (visualized in the next figure).
+            At inference (<strong>right</strong>), we finetune CogNVS on the given input sequence by similarly constructing self-supervised training pairs. The final novel-view is then generated using the finetuned CogNVS in a feed-forward manner.
+          </p>
+          <img src="./static/images/method.png" alt="Method Figure" width="100%">
+          
+          <!-- &nbsp;
+          &nbsp;
+          <p>
+            <strong>Self-supervised training data generation.</strong> To curate a large training set for video inpainting, we first reconstruct an input source 2D video (in <span style="color:blue;">blue</span>) with an off-the-shelf monocular SLAM system. After reconstruction, we randomly sample \( N \) pairs of ‘start’ and ‘end’ camera poses around a spherical region, \( \mathcal{S} \), of the estimated camera pose in the given 2D video. \( \mathcal{S} \) is bounded by a predefined deviation in the spherical coordinate axes.
+            We sample an \( \mathrm{SE(3)} \) camera trajectory that interpolates the start and end poses while looking at the center of the scene. We render the reconstruction from this novel trajectory (in <span style="color:orange;"><em>dotted-orange</em></span>), and use the rendering to identify co-visible pixels in the original source view (in <span style="color:orange;">orange</span>). The source video and its masked variant are used to produce a self-supervised training pair for training CogNVS, our “3D-aware” video inpainting diffusion.
+          </p>
+          <img src="./static/images/data_gen.png" alt="Data Generation Figure" width="100%"> -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+
     <!--/ Pseudo-gt. -->
 
 
@@ -504,45 +601,27 @@
     <!--/ Concurrent Work. -->
 
 
-<!-- 
-<section class="section">
-
-
-  <div class="container is-max-desktop">
-    <div class="columns is-centered">
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">How does it work?</h2>
-          <p>
-            The first stage of our pipeline generates amodal masks {A<sub>t</sub>} for an object, given its modal masks {M<sub>t</sub>} and pseudo-depth of the scene {D<sub>t</sub>} (which is obtained by running a monocular depth estimator on RGB video sequence {I<sub>t</sub>} ). The predicted amodal masks from the first stage are then sent as input to the second stage, along with the modal RGB content of the occluded object in consideration. The second stage then inpaints the occluded region and outputs the amodal RGB content {C<sub>t</sub>}
-           for the occluded object. Both stages employ a conditional latent diffusion framework with a 3D UNet backbone.
-          </p>
-          <img id="method" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/images/method_figure.pdf"
-                    type="images/pdf">
-        </img>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-
-</section> -->
-
 
 <section class="section" id="BibTeX">
-  <div class="container is-max-desktop content">
-    <h2 class="title">BibTeX</h2>
-    <pre><code>@article{chen2025cognvs,
-      title={Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
-      author={Kaihua Chen and Tarasha Khurana and Deva Ramanan},
-      year={2025},
-      archivePrefix={arXiv},
-      eprint={...},
-      primaryClass={cs.CV},
-      url={...}
-    }</code></pre>
+  <div class="container is-max-desktop content" style="margin-bottom: 30px;">
+    <h2 class="title">
+      BibTeX
+    </h2>
+    <pre><code id="bibtex-code">@article{chen2025cognvs,
+  title={Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
+  author={Kaihua Chen and Tarasha Khurana and Deva Ramanan},
+  year={2025},
+  archivePrefix={arXiv},
+  eprint={...},
+  primaryClass={cs.CV},
+  url={...}
+}</code></pre>
+<button id="copy-bibtex-btn"
+              class="button is-light is-pulled-left"
+              type="button"
+              aria-label="Copy BibTeX to clipboard">
+        Copy
+      </button>
   </div>
 </section>
 
@@ -592,7 +671,46 @@
       video.load();
     });
   });
+
+  document.querySelectorAll('#pardom-pills .pardom-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const scene = pill.dataset.value;
+      const video = document.getElementById('pardom-video');
+      video.querySelector('source').src = `./static/videos/pardom/${scene}.mp4`;
+      video.load();
+    });
   });
+  });
+
+
+  document.addEventListener('DOMContentLoaded', function () {
+  const btn  = document.getElementById('copy-bibtex-btn');
+  const code = document.getElementById('bibtex-code');
+  if (!btn || !code) return;
+
+  btn.addEventListener('click', async () => {
+    const text = code.innerText.trim();
+    async function copyFallback() {
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.top = '-1000px';
+      document.body.appendChild(ta);
+      ta.focus();
+      ta.select();
+      try { document.execCommand('copy'); } catch (_) {}
+      document.body.removeChild(ta);
+    }
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch (err) {
+      await copyFallback();
+    }
+    const old = btn.textContent;
+    btn.textContent = 'Copied!';
+    setTimeout(() => { btn.textContent = old; }, 1500);
+  });
+});
   
 </script>
 

@@ -132,7 +132,8 @@
   <div class="container is-max-desktop has-text-centered">
     <p class="is-size-5 has-text-weight-semibold">
       TL;DR: CogNVS is a video diffusion model for dynamic novel-view synthesis trained in a self-supervised manner using only 2D videos!
-       We first reconstruct input views with off-the-shelf SLAM systems, create self-supervised training pairs for pretraining, and test-time finetune to the input at inference.
+       We reformulate novel-view synthesis as a structured inpainting task: (1) we reconstruct input views with off-the-shelf SLAM systems,
+        (2) create self-supervised training pairs for pretraining an inpainting model, and (3) test-time finetune to the input at inference.
     </p>
   </div>
 </section>

@@ -59,6 +59,25 @@
 .card-img:hover {
     transform: scale(1.05);
 }
+
+.neurips-ribbon {
+  position: absolute;
+  right: -70px;
+  top: 5px;
+  transform: rotate(30deg);
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  pointer-events: none;
+
+  font-weight: bold;
+  padding: 0.4em 1em;
+  border-radius: 0.3em;
+}
+
+div.neurips-ribbon.tag {
+  background-color: #e5d4f9 !important;
+  color: #5e2d91;
+}
 </style>
 
 </head>
@@ -71,6 +90,9 @@
       <div class="columns is-centered">
         <div class="column has-text-centered">
           <h1 class="title is-1 publication-title">Reconstruct, Inpaint, Finetune:<br>Dynamic Novel-view Synthesis from Monocular Videos</h1>
+          <div class="neurips-ribbon tag is-light is-large">
+              NeurIPS 2025
+          </div>
           <div class="is-size-5 publication-authors">
             <span class="author-block">
               <a href="https://github.com/Kaihua-Chen/">Kaihua Chen</a><sup>*</sup>,&nbsp;</span>

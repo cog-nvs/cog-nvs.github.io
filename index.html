@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos">
+        content="Reconstruct, Inpaint, Test-Time Finetune: Dynamic Novel-view Synthesis from Monocular Videos">
   <meta name="keywords" content="novel-view synthesis, 4D reconstruction, video diffusion, diffusion inpainting">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos</title>
+  <title>Reconstruct, Inpaint, Test-Time Finetune: Dynamic Novel-view Synthesis from Monocular Videos</title>
 
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
@@ -62,7 +62,7 @@
 
 .neurips-ribbon {
   position: absolute;
-  right: -70px;
+  right: -90px;
   top: 5px;
   transform: rotate(30deg);
   z-index: 10;
@@ -89,7 +89,7 @@ div.neurips-ribbon.tag {
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Reconstruct, Inpaint, Finetune:<br>Dynamic Novel-view Synthesis from Monocular Videos</h1>
+          <h1 class="title is-1 publication-title">Reconstruct, Inpaint, Test-Time Finetune:<br>Dynamic Novel-view Synthesis from Monocular Videos</h1>
           <div class="neurips-ribbon tag is-light is-large">
               NeurIPS 2025
           </div>
@@ -172,12 +172,12 @@ div.neurips-ribbon.tag {
         We present CogNVS, a video diffusion model for novel-view synthesis of dynamic scenes. 
         Given an in-the-wild monocular video capturing a dynamic scene, we first reconstruct the scene, render it from the target novel-view and inpaint any unobserved regions. 
         Because CogNVS can be pre-trained via self-supervision, it can also be test-time-finetuned on a given target video, enabling it to zero-shot generalize to novel domains.
-        Here, we illustrate CogNVS’s “reconstruct, inpaint, finetune” pipeline on a sample video.
+        Here, we illustrate CogNVS’s “reconstruct, inpaint, Test-Time finetune” pipeline on a sample video.
       </h2> -->
 
       <p>Given an in-the-wild monocular video capturing a dynamic scene, we first reconstruct the scene, render it from the target novel-view and inpaint any unobserved regions. 
         Because CogNVS can be pre-trained via self-supervision, it can also be test-time-finetuned on a given target video, enabling it to zero-shot generalize to novel domains.
-        Here, we illustrate CogNVS’s “reconstruct, inpaint, finetune” pipeline on a sample video.</p>
+        Here, we illustrate CogNVS’s “reconstruct, inpaint, Test-Time finetune” pipeline on a sample video.</p>
     </div>
   </div>
 </section>
@@ -633,14 +633,11 @@ div.neurips-ribbon.tag {
     <h2 class="title">
       BibTeX
     </h2>
-    <pre><code id="bibtex-code">@article{chen2025cognvs,
-  title={Reconstruct, Inpaint, Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
-  author={Kaihua Chen and Tarasha Khurana and Deva Ramanan},
-  year={2025},
-  archivePrefix={arXiv},
-  eprint={2507.12646},
-  primaryClass={cs.CV},
-  url={https://arxiv.org/abs/2507.12646}
+    <pre><code id="bibtex-code">@inproceedings{chen2025cognvs,
+  title     = {Reconstruct, Inpaint, Test-Time Finetune: Dynamic Novel-view Synthesis from Monocular Videos},
+  author    = {Chen, Kaihua and Khurana, Tarasha and Ramanan, Deva},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  year      = {2025}
 }</code></pre>
 <button id="copy-bibtex-btn"
               class="button is-light is-pulled-left"
